@@ -17,13 +17,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-/**
- * @Route("/main")
- */
+
 class MainController extends BaseController
 {
     /**
-     * @Route("/index", name="main")
+     * @Route("/", name="main")
      * @Template()
      */
     public function indexAction()
