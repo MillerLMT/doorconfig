@@ -59,7 +59,7 @@ class MainController extends BaseController
 
         $this->sc->get(ConfiguratorModule::class)->processing($data, $doorAccessories);
 
-        return $this->redirect('index');
+        return $this->redirect('/');
     }
 
     /**
@@ -79,7 +79,7 @@ class MainController extends BaseController
        } else {
            throw new \Exception('Data not found');
        }
-        return $this->redirect('index');
+        return $this->redirect('/');
     }
 
 }
