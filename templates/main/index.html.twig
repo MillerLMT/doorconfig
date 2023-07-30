@@ -1,0 +1,214 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <script>
+        let price = {{ defaultData.price }};
+
+        let colors = [];
+        {% for item in colors %}
+        colors.push(
+            {
+                id: {{ item.id }},
+                name: '{{ item.name }}',
+                price: {{ item.price }}
+            }
+        )
+        {% endfor %}
+
+        let doorAccessories = [];
+        {% for item in doorAccessories %}
+        doorAccessories.push(
+            {
+                id: {{ item.id }},
+                price: {{ item.price }}
+            }
+        )
+        {% endfor %}
+
+        let doorHeights = [];
+        {% for item in doorHeights %}
+        doorHeights.push(
+            {
+                id: {{ item.id }},
+                price: {{ item.price }}
+            }
+        )
+        {% endfor %}
+
+        let doorWidths = [];
+        {% for item in doorWidths %}
+        doorWidths.push(
+            {
+                id: {{ item.id }},
+                price: {{ item.price }}
+            }
+        )
+        {% endfor %}
+
+        let filmColors = [];
+        {% for item in filmColors %}
+        filmColors.push(
+            {
+                id: {{ item.id }},
+                price: {{ item.price }}
+            }
+        )
+        {% endfor %}
+
+        let handleColors = [];
+        {% for item in handleColors %}
+        handleColors.push(
+            {
+                id: {{ item.id }},
+                price: {{ item.price }}
+            }
+        )
+        {% endfor %}
+    </script>
+
+    <div class="text">
+        <h2>Конфигуратор двери<br>Выберите свои цвета и размеры</h2>
+    </div>
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-4">
+             <img id="doorImage" src="" alt="" height="75%">
+        </div>
+        <div class="col-1"></div>
+        <div class="col-4 text">
+            <form action="{{ url('send') }}" method="post"  style="margin-bottom: 2em">
+                <div style="margin-bottom: 2em">
+                    <label for="doorColor">Выберите цвет двери</label>
+                    <select id="doorColor" name="data[doorColor]" onchange="changePrice()">
+                        <option value="0" selected disabled>Выбор</option>
+                        {% for item in colors %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div style="margin-bottom: 2em">
+                    <label for="filmColor">Выберите цвет пленки</label>
+                    <select id="filmColor" name="data[filmColor]" onchange="changePrice()">
+                        <option value="0" selected disabled>Выбор</option>
+                        {% for item in filmColors %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div style="margin-bottom: 2em">
+                    <label for="doorHeight">Выберите высоту двери</label>
+                    <select id="doorHeight" name="data[doorHeight]" onchange="changePrice()">
+                        <option value="0" selected disabled>Выбор</option>
+                        {% for item in doorHeights %}
+                            <option value="{{ item.id }}">{{ item.height }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div style="margin-bottom: 2em">
+                    <label for="doorWidth">Выберите ширину двери</label>
+                    <select id="doorWidth" name="data[doorWidth]" onchange="changePrice()">
+                        <option value="0" selected disabled>Выбор</option>
+                        {% for item in doorWidths %}
+                            <option value="{{ item.id }}">{{ item.width }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div style="margin-bottom: 2em">
+                    <label for="handleColor">Выберите цвет ручки</label>
+                    <select id="handleColor" name="data[handleColor]" onchange="changePrice()">
+                        <option value="0" selected disabled>Выбор</option>
+                        {% for item in handleColors %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div style="margin-bottom: 2em">
+                    <label for="doorAccessories">Выберите аксессуар</label>
+                    <select id="doorAccessories" name="doorAccessories[]" multiple   onchange="changePrice()">
+                        <option value="0" selected disabled>Выбор</option>
+                        {% for item in doorAccessories %}
+                            <option  value="{{ item.id }}">{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <input type="submit" value="Рассчитать условия">
+
+            </form>
+            <span>Итого: <span id="finalPrice"></span> руб.</span>
+        </div>
+        <div class="col-1"></div>
+    </div>
+    <div class="row text">
+        <div class="col-6"></div>
+        <div class="col-3">
+
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("finalPrice").innerHTML = price;
+
+        $(document).ready(function() {
+            $('#doorAccessories').multiselect();
+        });
+
+        function changePrice() {
+            price = {{ defaultData.price }};
+            let doorColor = document.querySelector('select#doorColor');
+            let doorColorValue = doorColor.value;
+            if (doorColorValue > 0) {
+                changeDoorImage(doorColorValue);
+                price = price + colors.find(i => i.id == doorColorValue).price;
+            }
+
+            let filmColor = document.querySelector('select#filmColor');
+            let filmColorValue = filmColor.value;
+            if (filmColorValue > 0) {
+                price = price + filmColors.find(i => i.id == filmColorValue).price;
+            }
+
+            let doorHeight = document.querySelector('select#doorHeight');
+            let doorHeightValue = doorHeight.value;
+            if (doorHeightValue > 0) {
+                price = price + doorHeights.find(i => i.id == doorHeightValue).price;
+            }
+
+            let doorWidth = document.querySelector('select#doorWidth');
+            let doorWidthValue = doorWidth.value;
+            if (doorWidthValue > 0) {
+                price = price + doorWidths.find(i => i.id == doorWidthValue).price;
+            }
+
+            let handleColor = document.querySelector('select#handleColor');
+            let handleColorValue = handleColor.value;
+            if (handleColorValue > 0) {
+                price = price + handleColors.find(i => i.id == handleColorValue).price;
+            }
+
+            let doorAccessor = document.querySelector('select#doorAccessories');
+            var doorAccessoriesValues = [...doorAccessor.options]
+                .filter(option => option.selected)
+                .map(option => option.value);
+            console.log('doorAccessoriesValues: ', doorAccessoriesValues);
+            if (doorAccessoriesValues.length > 0) {
+                doorAccessoriesValues.forEach(value => {
+                    if (value > 0) {
+                        price = price + doorAccessories.find(i => i.id == Number(value)).price;
+                    }
+
+                });
+            }
+
+            document.getElementById("finalPrice").innerHTML = price;
+        }
+
+        function changeDoorImage(colorId) {
+            let colorName = colors.find(i => i.id == colorId).name;
+            let imagePath = '/image/door/' + colorName + '.jpg';
+            document.getElementById('doorImage').src = imagePath;
+            document.getElementById('doorImage').alt = colorName;
+        }
+    </script>
+
+{% endblock %}

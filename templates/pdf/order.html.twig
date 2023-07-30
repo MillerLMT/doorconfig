@@ -1,0 +1,57 @@
+<table cellpadding="10" cellspacing="0" width="100%">
+    <tbody>
+    {% if order %}
+    <tr>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">Номер заказа</td>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">{{ order.id }}</td>
+    </tr>
+    {% endif %}
+    {% if color %}
+    <tr>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">Цвет двери</td>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">{{ color.name }}</td>
+    </tr>
+    {% endif %}
+    {% if filmColor %}
+    <tr>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">Цвет пленки</td>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">{{ filmColor.name }}</td>
+    </tr>
+    {% endif %}
+    {% if doorHeight %}
+    <tr>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">Высота двери</td>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">{{ doorHeight.height }}</td>
+    </tr>
+    {% endif %}
+    {% if doorWidth %}
+    <tr>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">Ширина двери</td>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">{{ doorWidth.width }}</td>
+    </tr>
+    {% endif %}
+    {% if handleColor %}
+    <tr>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">Цвет ручки</td>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">{{ handleColor.name }}</td>
+    </tr>
+    {% endif %}
+    {% if accessoryNames %}
+    <tr>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">Аксессуары</td>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">{{ accessoryNames }}</td>
+    </tr>
+    {% endif %}
+    {% if order %}
+    <tr>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">итоговая цена</td>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">{{ order.price }}</td>
+    </tr>
+    <tr>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">Дилерская цена</td>
+        <td align="center" width="30%" style="border-bottom: 1px solid;">{{ order.dealerPrice }}</td>
+    </tr>
+    {% endif %}
+    </tbody>
+</table>
+

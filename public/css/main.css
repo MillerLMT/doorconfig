@@ -1,0 +1,33 @@
+div.text{
+    font: 700 1.5em/1 "Oswald", sans-serif;
+    color: #f69c12;
+    text-shadow:
+            0 0 5px #8f460a,
+
+            0 0 20px #3a2902,
+
+            0 0 80px #774205,
+            0 0 90px #573304,
+            0 0 100px #382301,
+            0 0 150px #361e01;
+    text-align: center;
+    margin-top: 50px;
+}
+body {
+    background-image:url('/image/background2.jpg')   ;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: 100%;
+    animation: myAnim 1s linear 0s 1 normal forwards;
+}
+@keyframes myAnim {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
